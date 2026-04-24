@@ -47,6 +47,56 @@
   color: var(--text-primary);
 }
 
+.leadsCount {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 2px 10px;
+}
+
+/* Query form */
+.queryForm {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.queryInput {
+  flex: 1;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-size: 12px;
+  padding: 7px 12px;
+  transition: border-color var(--transition);
+}
+
+.queryInput:focus { border-color: var(--border-accent); }
+.queryInput::placeholder { color: var(--text-muted); }
+
+.queryBtn {
+  padding: 7px 14px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 600;
+  transition: all var(--transition);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.queryBtn:hover {
+  background: var(--accent);
+  color: var(--bg-base);
+  border-color: var(--accent);
+}
+
 /* ============================================
    SEARCH
    ============================================ */
@@ -406,26 +456,56 @@
 
 /* Sections */
 .detailSection {
-  margin-bottom: 24px;
+  margin-bottom: 20px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 18px;
 }
 
 .detailSectionTitle {
-  font-size: 11px;
-  font-weight: 600;
+  font-size: 10px;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   color: var(--text-muted);
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   display: flex;
   align-items: center;
 }
 
 .detailDesc {
-  font-size: 13px;
+  font-size: 13.5px;
   color: var(--text-secondary);
-  line-height: 1.75;
+  line-height: 1.8;
   white-space: pre-line;
+  word-break: break-word;
 }
+
+.detailDescClamped {
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  /* autoprefixer: ignore next */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.expandBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(240,240,240,0.4);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: color var(--transition);
+}
+
+.expandBtn:hover { color: var(--text-primary); }
 
 /* Skills */
 .skillsList {

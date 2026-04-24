@@ -1,0 +1,337 @@
+/* ══════════════════════════════════════════
+   SIGNUP PAGE
+══════════════════════════════════════════ */
+.page {
+  display: grid;
+  grid-template-columns: 480px 1fr;
+  min-height: 100svh;
+  background: #0a0a0a;
+}
+
+@media (max-width: 768px) {
+  .page { grid-template-columns: 1fr; }
+  .decoPane { display: none; }
+}
+
+/* ── Left form pane ── */
+.formPane {
+  background: #111;
+  display: flex;
+  flex-direction: column;
+  padding: 40px 48px;
+  position: relative;
+  border-right: 1px solid rgba(255,255,255,0.06);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 56px;
+}
+
+.brandSq {
+  width: 14px;
+  height: 14px;
+  background: #f0f0f0;
+  border-radius: 2px;
+}
+
+.brandName {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #f0f0f0;
+}
+
+.brandAi {
+  font-size: 9px;
+  color: rgba(240,240,240,0.3);
+  margin-left: 2px;
+}
+
+.formCard {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 360px;
+}
+
+.title {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: #f0f0f0;
+  margin-bottom: 6px;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: rgba(240,240,240,0.35);
+  margin-bottom: 28px;
+}
+
+.link {
+  color: rgba(240,240,240,0.6);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+
+.link:hover { color: #f0f0f0; }
+
+/* Google SSO button */
+.googleBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 11px 16px;
+  background: #f0f0f0;
+  color: #111;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  transition: background 0.2s ease, transform 0.15s ease;
+  margin-bottom: 20px;
+}
+
+.googleBtn:hover {
+  background: #fff;
+  transform: translateY(-1px);
+}
+
+/* Divider */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.dividerLine {
+  flex: 1;
+  height: 1px;
+  background: rgba(255,255,255,0.07);
+}
+
+.dividerOr {
+  font-size: 11px;
+  color: rgba(240,240,240,0.2);
+  letter-spacing: 0.06em;
+}
+
+/* Name row */
+.nameRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+/* Input */
+.input {
+  width: 100%;
+  padding: 11px 14px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 6px;
+  color: #f0f0f0;
+  font-size: 13px;
+  transition: border-color 0.2s ease, background 0.2s ease;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.input::placeholder { color: rgba(240,240,240,0.2); }
+
+.input:focus {
+  border-color: rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.06);
+}
+
+.nameRow .input { margin-bottom: 0; }
+
+/* Password field */
+.passWrap {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.passWrap .input { margin-bottom: 0; padding-right: 40px; }
+
+.passToggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: rgba(240,240,240,0.25);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s ease;
+  padding: 0;
+}
+
+.passToggle:hover { color: rgba(240,240,240,0.6); }
+
+/* Terms */
+.terms {
+  font-size: 11px;
+  color: rgba(240,240,240,0.2);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+/* Submit */
+.submitBtn {
+  width: 100%;
+  padding: 13px;
+  background: #f0f0f0;
+  color: #0a0a0a;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.submitBtn:hover {
+  background: #fff;
+  transform: translateY(-1px);
+}
+
+/* ── Right decorative pane ── */
+.decoPane {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 36px;
+  padding: 60px;
+  background: #0d0d0d;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle grid bg */
+.decoPane::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 32px 32px;
+  pointer-events: none;
+}
+
+.decoTagline {
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  line-height: 1.15;
+  color: rgba(240,240,240,0.7);
+  text-align: center;
+  position: relative;
+}
+
+.decoTagline em {
+  font-style: italic;
+  color: rgba(240,240,240,0.3);
+}
+
+/* Decorative art area */
+.decoArt {
+  position: relative;
+  width: 280px;
+  height: 300px;
+}
+
+.decoCenterIll {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.decoSvg {
+  width: 200px;
+  height: 220px;
+}
+
+/* Scanline pulse animation */
+@keyframes scanPulse {
+  0%, 100% { opacity: 0.06; }
+  50%       { opacity: 0.18; }
+}
+
+.scanline {
+  animation: scanPulse 2.4s ease-in-out infinite;
+}
+
+/* Floating stat cards */
+.floatCard {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 8px;
+  backdrop-filter: blur(8px);
+  animation: floatBob 4s ease-in-out infinite;
+}
+
+@keyframes floatBob {
+  0%,100%{ transform: translateY(0); }
+  50%{ transform: translateY(-6px); }
+}
+
+.floatCard1 {
+  top: 10px;
+  left: -20px;
+  animation-delay: 0ms;
+}
+
+.floatCard2 {
+  top: 50%;
+  right: -24px;
+  transform: translateY(-50%);
+  animation-delay: 700ms;
+}
+
+.floatCard3 {
+  bottom: 10px;
+  left: 10px;
+  animation-delay: 1400ms;
+}
+
+.floatCardDot {
+  width: 6px;
+  height: 6px;
+  background: #f0f0f0;
+  border-radius: 50%;
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+
+.floatCardVal {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #f0f0f0;
+}
+
+.floatCardLbl {
+  font-size: 10px;
+  color: rgba(240,240,240,0.3);
+  letter-spacing: 0.02em;
+}

@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { createSupabaseBrowserClient } from '@/lib/supabase/client';
 import styles from './layout.module.css';
 
 const NAV_ITEMS = [
@@ -52,7 +53,36 @@ interface AppLayoutProps {
 
 export default function AppLayout({ children }: AppLayoutProps) {
   const pathname = usePathname();
+  const router = useRouter();
   const [collapsed, setCollapsed] = useState(false);
+  const [userData, setUserData] = useState<{ name: string; plan: string }>({ name: '', plan: 'Free' });
+
+  const handleLogout = async () => {
+    const supabase = createSupabaseBrowserClient();
+    await supabase.auth.signOut();
+    router.push('/');
+  };
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const supabase = createSupabaseBrowserClient();
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+
+      const [{ data: profile }, { data: sub }] = await Promise.all([
+        supabase.from('profiles').select('full_name').eq('id', user.id).single(),
+        supabase.from('subscriptions').select('plan').eq('user_id', user.id).single()
+      ]);
+
+      setUserData({
+        name: profile?.full_name || user.email?.split('@')[0] || 'User',
+        plan: sub?.plan === 'pro' ? 'Pro Plan' : sub?.plan === 'agency' ? 'Agency Plan' : 'Free Plan'
+      });
+    };
+    fetchUser();
+  }, []);
+
+  const avatarChar = userData.name ? userData.name.charAt(0).toUpperCase() : 'U';
 
   return (
     <div className={`${styles.shell} ${collapsed ? styles.collapsed : ''}`}>
@@ -60,13 +90,10 @@ export default function AppLayout({ children }: AppLayoutProps) {
       <aside className={styles.sidebar}>
         <div className={styles.sidebarTop}>
           <Link href="/" className={styles.brand}>
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <circle cx="10" cy="10" r="9" stroke="#4F9CF9" strokeWidth="1.5"/>
-              <circle cx="10" cy="10" r="3" fill="#4F9CF9"/>
-              <circle cx="10" cy="3.5" r="1.5" fill="#4F9CF9" opacity="0.5"/>
-              <circle cx="16.5" cy="10" r="1.5" fill="#4F9CF9" opacity="0.5"/>
-              <circle cx="10" cy="16.5" r="1.5" fill="#4F9CF9" opacity="0.5"/>
-              <circle cx="3.5" cy="10" r="1.5" fill="#4F9CF9" opacity="0.5"/>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <rect width="16" height="16" rx="2" fill="rgba(240,240,240,0.9)"/>
+              <rect x="4" y="4" width="4" height="4" rx="0.5" fill="#0a0a0a"/>
+              <rect x="4" y="9" width="8" height="1.5" rx="0.5" fill="#0a0a0a" opacity="0.4"/>
             </svg>
             {!collapsed && (
               <span className={styles.brandText}>
@@ -106,15 +133,23 @@ export default function AppLayout({ children }: AppLayoutProps) {
         </nav>
 
         <div className={styles.sidebarBottom}>
-          <div className={styles.userCard}>
-            <div className={styles.avatar}>A</div>
+          <Link href="/app/profile" className={styles.userCard}>
+            <div className={styles.avatar}>{avatarChar}</div>
             {!collapsed && (
               <div className={styles.userInfo}>
-                <span className={styles.userName}>Alex Johnson</span>
-                <span className={styles.userPlan}>Pro Plan</span>
+                <span className={styles.userName}>{userData.name || 'Loading...'}</span>
+                <span className={styles.userPlan}>{userData.plan}</span>
               </div>
             )}
-          </div>
+          </Link>
+          <button className={styles.logoutBtn} onClick={handleLogout} title="Log out">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+              <polyline points="16 17 21 12 16 7"></polyline>
+              <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>
+            {!collapsed && <span>Log out</span>}
+          </button>
         </div>
       </aside>
 
