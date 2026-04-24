@@ -171,22 +171,22 @@ export default function SettingsPage() {
             
             <div className={styles.toggleRow}>
               <div className={styles.toggleInfo}>
-                <span className={styles.toggleLabel}>Email Notifications</span>
+                <span className={styles.toggleLabel}>Email Notifications (Coming Soon)</span>
                 <span className={styles.toggleDesc}>Receive daily digest of new high-match leads</span>
               </div>
               <label className={styles.switch}>
-                <input type="checkbox" defaultChecked />
+                <input type="checkbox" disabled />
                 <span className={styles.slider}></span>
               </label>
             </div>
 
             <div className={styles.toggleRow}>
               <div className={styles.toggleInfo}>
-                <span className={styles.toggleLabel}>Urgent Alerts</span>
+                <span className={styles.toggleLabel}>Urgent Alerts (Coming Soon)</span>
                 <span className={styles.toggleDesc}>Immediately notify me for leads marked as urgent</span>
               </div>
               <label className={styles.switch}>
-                <input type="checkbox" defaultChecked />
+                <input type="checkbox" disabled />
                 <span className={styles.slider}></span>
               </label>
             </div>
@@ -204,24 +204,10 @@ export default function SettingsPage() {
             </div>
 
             <div className={styles.actions}>
-              <button className="btn btn-primary" onClick={async () => {
-                if (!userData.email) {
-                  alert('Please enter an email address first.');
-                  return;
-                }
-                const res = await fetch('/api/email/welcome', {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({ email: userData.email, name: userData.name })
-                });
-                const data = await res.json();
-                if (data.success) alert('Test email sent! Check your inbox.');
-                else {
-                  console.error('Email failed:', data.error);
-                  alert('Error: ' + (data.error?.message || data.error || 'Failed to send. Check console for details.'));
-                }
+              <button className="btn btn-primary" onClick={() => {
+                alert('Email features are coming soon once custom domain verification is complete!');
               }}>
-                Send Test Email
+                Send Test Email (Coming Soon)
               </button>
               <button className="btn btn-primary" style={{ marginLeft: '12px' }}>Save Preferences</button>
             </div>
